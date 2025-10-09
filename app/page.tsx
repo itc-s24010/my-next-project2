@@ -14,7 +14,7 @@ const data: { contents: News[] } = {
   contents: [
     {
       id: "1",
-      title: "渋谷二オフィスを転移しました",
+      title: "渋谷にオフィスを転移しました",
       category: {
         name: "最新情報",
       },
