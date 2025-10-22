@@ -4,16 +4,14 @@ import type {
   MicroCMSImage,
   MicroCMSListContent,
 } from "microcms-js-sdk";
-
 export type Member = {
   name: string;
   position: string;
   profile: string;
   image: MicroCMSImage;
 } & MicroCMSListContent;
-
 export type Category = {
-  nama: string;
+    name: string;
 } & MicroCMSListContent;
 
 export type News = {
@@ -25,15 +23,18 @@ export type News = {
 } & MicroCMSListContent;
 
 if (!process.env.MICROCMS_SERVICE_DOMAIN) {
-  throw new Error("MMICROCMS_SERVICE_DOMAIN is required");
+  throw new Error("MICROCMS_SERVICE_DOMAIN is required");
 }
+
 if (!process.env.MICROCMS_API_KEY) {
   throw new Error("MICROCMS_API_KEY is required");
 }
+
 const client = createClient({
   serviceDomain: process.env.MICROCMS_SERVICE_DOMAIN,
   apiKey: process.env.MICROCMS_API_KEY,
 });
+
 
 export const getMembersList = async (queries?: MicroCMSQueries) => {
   const listData = await client.getList<Member>({
@@ -44,10 +45,21 @@ export const getMembersList = async (queries?: MicroCMSQueries) => {
 };
 
 export const getNewsList = async (queries?: MicroCMSQueries) => {
-  const listData = await client
-  .getList<News>({
-    endpoint: "news",
-    queries,
-  });
-  return listData;
+    const listData = await client.getList<News>({
+        endpoint: "news",
+        queries,
+    });
+    return listData;
 };
+
+export const getNewsDetail = async (
+    contentId: string,
+    queries?:MicroCMSQueries
+) => {
+    const detailData = await client.getListDetail<News>({
+        endpoint: "news",
+        contentId,
+        queries
+    });
+    return detailData
+}
